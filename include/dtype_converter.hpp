@@ -98,17 +98,10 @@ namespace pyextend
     };
 
 
-    /** Convert Python to C */
-    List<T> py2c( PyObject* pylist, bool own )
-    {
-      return List<T>(pylist, own);
-    };
-
-
-    /** Default implementation, wrapper does not own the underlying pointer */
+    /** Default implementation, wrapper does not own the underlying p*/
     List<T> py2c( PyObject *pylist )
     {
-      return py2c( pylist, false );
+      return py2c( pylist );
     }
   };
 };

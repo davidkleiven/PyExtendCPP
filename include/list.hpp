@@ -55,6 +55,10 @@ namespace pyextend
 
     /** Get a raw pointer to the underlying object */
     PyObject* raw_ptr() { return obj; };
+
+
+    /** This object owns the underlying pointer */
+    void set_own(){ own_raw_ptr=true; };
   private:
     pyextend::DataTypeConverter<dtype> converter;
     PyObject *obj;
