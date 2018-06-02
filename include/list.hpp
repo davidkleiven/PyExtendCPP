@@ -10,8 +10,17 @@ namespace pyextend
   class List
   {
   public:
-    List(PyObject *obj):obj(obj){};
+    List(PyObject *obj):obj(obj), own_raw_ptr(false){};
+    List(PyObject *obj, bool own):obj(obj), own_raw_ptr(own){};
 
+
+   ~List()
+   {
+     if ( own_raw_ptr )
+     {
+       Py_DECREF(obj);
+     }
+   }
 
     /** Returns the size of the list */
     unsigned int size() const
@@ -49,6 +58,7 @@ namespace pyextend
   private:
     pyextend::DataTypeConverter<dtype> converter;
     PyObject *obj;
+    bool own_raw_ptr{false};
   };
 };
 #endif
