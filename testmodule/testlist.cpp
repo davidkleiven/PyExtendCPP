@@ -35,5 +35,5 @@ PyObject* sum_list( PyObject* self, PyObject* args )
   vector<double> vec;
   list_dbl.to_vector(vec);
 
-  return PyInt_FromLong(int_sum);
+  return PyFloat_FromDouble(int_sum);
 }

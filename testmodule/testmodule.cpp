@@ -19,7 +19,7 @@ static PyMethodDef testmodule_methods[] = {
 #endif
 
 #if PY_MAJOR_VERSION >= 3
-  PyMODINIT_FUNC PyInit_testmodule(void)
+  PyMODINIT_FUNC PyInit_testmodule_cpp(void)
   {
     PyObject* module = PyModule_Create( &testmodule );
     import_array();

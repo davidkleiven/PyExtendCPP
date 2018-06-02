@@ -3,6 +3,10 @@
 #include <stdexcept>
 #include "object.hpp"
 
+#if PY_MAJOR_VERSION >= 3
+#define IS_PY3
+#endif
+
 namespace pyextend
 {
   template<class T>
@@ -58,12 +62,20 @@ namespace pyextend
     /** Convert C-type to python */
     PyObject* c2py( int value )
     {
-      return PyInt_FromLong(value);
+      #ifdef IS_PY3
+        return PyLong_FromLong(value);
+      #else
+        return PyInt_FromLong(value);
+      #endif
     };
 
     int py2c( PyObject *pyobj )
     {
-      return PyInt_AsLong(pyobj);
+      #ifdef IS_PY3
+        return PyLong_AsLong(pyobj);
+      #else
+        return PyInt_AsLong(pyobj);
+      #endif
     };
   };
 };
