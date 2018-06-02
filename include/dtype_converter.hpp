@@ -101,7 +101,7 @@ namespace pyextend
     /** Default implementation, wrapper does not own the underlying p*/
     List<T> py2c( PyObject *pylist )
     {
-      return py2c( pylist );
+      return List<T> (pylist);
     }
   };
 };

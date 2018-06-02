@@ -2,6 +2,7 @@
 #include <pyextend/pyextend.hpp>
 #include <cmath>
 #include <vector>
+#include <iostream>
 
 using namespace pyextend;
 using namespace std;
@@ -52,7 +53,7 @@ PyObject* sum_nested( PyObject *self, PyObject *args )
   List< List<double> > list(nested_list);
   for ( unsigned int i=0;i<list.size();i++ )
   {
-    List<double> sublist(list[i]);
+    List<double> sublist = list[i];
     for ( unsigned int j=0;j<sublist.size();j++ )
     {
       sum += sublist[j];
