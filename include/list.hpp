@@ -27,7 +27,7 @@ namespace pyextend
 
 
     /** Set an item */
-    void set( dtype &value, int indx )
+    void set( dtype value, int indx )
     {
       PyList_SetItem( obj, indx, converter.c2py(value) );
     };
