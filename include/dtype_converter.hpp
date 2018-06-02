@@ -6,7 +6,7 @@
 namespace pyextend
 {
   template<class T>
-  class DateTypeConverter
+  class DataTypeConverter
   {
   public:
     DataTypeConverter(){};
@@ -52,6 +52,7 @@ namespace pyextend
   template<>
   class DataTypeConverter<int>
   {
+  public:
     DataTypeConverter(){};
 
     /** Convert C-type to python */
@@ -65,5 +66,5 @@ namespace pyextend
       return PyInt_AsLong(pyobj);
     };
   };
-}
+};
 #endif

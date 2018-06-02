@@ -1,13 +1,13 @@
 #include "testlist.hpp"
-#include <pyextend/pyxtend.hpp>
+#include <pyextend/pyextend.hpp>
 #include <cmath>
 
 using namespace pyextend;
 
-static PyObject* sum_list( PyObject* self, PyyObject* arg )
+PyObject* sum_list( PyObject* self, PyObject* args )
 {
   PyObject *list = nullptr;
-  if ( !PyArg_ParseTupble("O", &list) )
+  if ( !PyArg_ParseTuple(args, "O", &list) )
   {
     type_error("Could not parse arguments");
     return NULL;

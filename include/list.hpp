@@ -14,7 +14,7 @@ namespace pyextend
 
 
     /** Returns the size of the list */
-    virtual unsigned int size() const override
+    unsigned int size() const
     {
       return PyList_Size(obj);
     };
@@ -42,9 +42,13 @@ namespace pyextend
         vec.push_back((*this)[i]);
       }
     };
+
+
+    /** Get a raw pointer to the underlying object */
+    PyObject* raw_ptr() { return obj; };
   private:
-    DataTypeConverter<dtype> converter;
+    pyextend::DataTypeConverter<dtype> converter;
     PyObject *obj;
   };
-}
+};
 #endif

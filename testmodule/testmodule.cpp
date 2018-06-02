@@ -1,9 +1,10 @@
 #include <Python.h>
 #include <numpy/ndarrayobject.h>
+
 #include "testlist.hpp"
 
 static PyMethodDef testmodule_methods[] = {
-  {"sum_list", sum_list, METH_VARARGS, "Sum a list"},
+  {"sum_list", sum_list, METH_VARARGS, "Sum the entries of a list"},
   {NULL,NULL,0,NULL}
 };
 
