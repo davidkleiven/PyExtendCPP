@@ -10,8 +10,8 @@ install:
   - env CC=g++ sudo pip install testmodule/
 
 script:
-  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages
-  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/site-packages:/usr/local/lib/python3.6/site-packages
-  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python2/dist-packages:/usr/local/lib/python2.7/dist-packages
-  - export PYTHONPATH=$PYTHONPATH:/usr/lib/python2/site-packages:/usr/local/lib/python2.7/site-packages
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/site-packages:/usr/local/lib/python3.6/site-packages
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then export PYTHONPATH=$PYTHONPATH:/usr/lib/python2/dist-packages:/usr/local/lib/python2.7/dist-packages
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then export PYTHONPATH=$PYTHONPATH:/usr/lib/python2/site-packages:/usr/local/lib/python2.7/site-packages
   - python -m unittest discover unittests/
