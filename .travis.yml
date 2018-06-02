@@ -7,7 +7,7 @@ python:
 install:
   - sudo make install
   - sudo pip install -r requirements.txt
-  - env CC=g++ pip install testmodule/ --user
+  - env CC=g++ sudo pip install testmodule/
 
 script:
   - python -m unittest discover unittests/
