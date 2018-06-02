@@ -37,3 +37,26 @@ PyObject* sum_list( PyObject* self, PyObject* args )
 
   return PyFloat_FromDouble(int_sum);
 }
+
+
+PyObject* sum_nested( PyObject *self, PyObject *args )
+{
+  PyObject *nested_list;
+  if ( !PyArg_ParseTuple(args, "O", &nested_list) )
+  {
+    type_error("Could not parse arguments");
+    return NULL;
+  }
+
+  double sum=0.0;
+  List< List<double> > list(nested_list);
+  for ( unsigned int i=0;i<list.size();i++ )
+  {
+    List<double> sublist(list[i]);
+    for ( unsigned int j=0;j<sublist.size();j++ )
+    {
+      sum += sublist[j];
+    }
+  }
+  return PyFloat_FromDouble(sum);
+}

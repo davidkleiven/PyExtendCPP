@@ -10,6 +10,9 @@
 namespace pyextend
 {
   template<class T>
+  class List;
+
+  template<class T>
   class DataTypeConverter
   {
   public:
@@ -76,6 +79,29 @@ namespace pyextend
       #else
         return PyInt_AsLong(pyobj);
       #endif
+    };
+  };
+
+
+  /** Convert to nested list */
+  template<class T>
+  class DataTypeConverter< pyextend::List<T> >
+  {
+  public:
+    DataTypeConverter(){};
+
+
+    /** Convert to C-type */
+    PyObject* c2py( pyextend::List<T> &list )
+    {
+      return list.raw_ptr();
+    };
+
+
+    /** Convert Python to C */
+    List<T> py2c( PyObject* pylist )
+    {
+      return List<T>(pylist);
     };
   };
 };

@@ -5,6 +5,7 @@
 
 static PyMethodDef testmodule_methods[] = {
   {"sum_list", sum_list, METH_VARARGS, "Sum the entries of a list"},
+  {"sum_nested", sum_nested, METH_VARARGS, "Sum all entreis in a nested list"},
   {NULL,NULL,0,NULL}
 };
 
