@@ -2,6 +2,7 @@
 #define DTYPE_CONVERTER_H
 #include <stdexcept>
 #include "object.hpp"
+#include "ensure_object_like.hpp"
 
 #if PY_MAJOR_VERSION >= 3
 #define IS_PY3
@@ -22,7 +23,8 @@ namespace pyextend
     /** Converts a data type to python */
     PyObject* c2py( const T& value )
     {
-      throw std::invalid_argument("Cannot convert arbitrary types to Python objects!");
+      ensure_object_like<T> type_check;
+      return value.raw_ptr();
     };
 
     /** Convert python object to C++ type */

@@ -44,6 +44,15 @@ namespace pyextend
       value.set_own();
       return value;
     };
+
+
+    /** Set attribute */
+    template<class dtype>
+    void set_attr( const char* name, const dtype& value )
+    {
+      DataTypeConverter<dtype> converter;
+      PyObject_SetAttr(obj, name, converter.c2py(value));
+    };
   private:
     PyObject* get_pyattr( const char *name )
     {
