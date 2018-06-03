@@ -60,16 +60,16 @@ class TestFramework( unittest.TestCase ):
         self.assertAlmostEqual(npsum,cppsum)
 
     def test_create1D(self):
-        array = create1D()
-        self.assertEqual( len(gc.get_referrers(array)), 1)
+        array1D = create1D()
+        self.assertEqual( len(gc.get_referrers(array1D)), 1)
 
     def test_create2D(self):
-        array = create2D()
-        self.assertEqual( len(gc.get_referrers(array)), 1)
+        array2D = create2D()
+        self.assertEqual( len(gc.get_referrers(array2D)), 1)
 
     def test_create3D(self):
-        array = create3D()
-        self.assertEqual( len(gc.get_referrers(array)), 1)
+        array3D = create3D()
+        self.assertEqual( len(gc.get_referrers(array3D)), 1)
 
 if __name__ == "__main__":
     unittest.main()
