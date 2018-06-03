@@ -123,10 +123,11 @@ namespace pyextend
     npy_intp dims[1] = {vec.size()};
     obj = PyArray_SimpleNew( 1, dims, npy_typenum<dtype>::value );
     otf_ptr = obj;
+    Py_INCREF(obj);
 
     for (unsigned int i=0;i<vec.size();i++ )
     {
-      double* ptr = static_cast<dtype*>( PyArray_GETPTR1(otf_ptr, i) );
+      dtype* ptr = static_cast<dtype*>( PyArray_GETPTR1(otf_ptr, i) );
       *ptr = vec[i];
     }
   }
@@ -139,11 +140,13 @@ namespace pyextend
     npy_intp dims[2] = {mat.size(), mat[0].size()};
     obj = PyArray_SimpleNew( 2, dims, npy_typenum<dtype>::value );
     otf_ptr = obj;
+    Py_INCREF(obj);
+
     for (unsigned int i=0;i<mat.size();i++ )
     {
       for (unsigned int j=0;j<mat[i].size();j++ )
       {
-        double *ptr = static_cast<dtype*>( PyArray_GETPTR2(otf_ptr, i,j) );
+        dtype *ptr = static_cast<dtype*>( PyArray_GETPTR2(otf_ptr, i,j) );
         *ptr = mat[i][j];
       }
     }
@@ -158,11 +161,13 @@ namespace pyextend
     npy_intp dims[3] = {mat.size(), mat[0].size(), mat[0][0].size()};
     obj = PyArray_SimpleNew( 3, dims, npy_typenum<dtype>::value );
     otf_ptr = obj;
+    Py_INCREF(obj);
+    
     for (unsigned int i=0;i<mat.size();i++ )
     for (unsigned int j=0;j<mat[i].size();j++ )
     for (unsigned int k=0;k<mat[i][j].size();k++ )
     {
-      double *ptr = static_cast<dtype*>( PyArray_GETPTR3(otf_ptr, i, j, k) );
+      dtype *ptr = static_cast<dtype*>( PyArray_GETPTR3(otf_ptr, i, j, k) );
       *ptr = mat[i][j][k];
     }
   }
