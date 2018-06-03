@@ -2,7 +2,7 @@
 #define NUMPY_ARRAY_WRAPPER_H
 #include "object_like.hpp"
 #define NO_IMPORT_ARRAY
-#define PY_ARRAY_UNIQUE_SYMBOL PYEXTEND_ARRAY_API
+//#define PY_ARRAY_UNIQUE_SYMBOL PYEXTEND_ARRAY_API
 #include <numpy/ndarrayobject.h>
 #include <vector>
 #include <iostream>
