@@ -3,24 +3,16 @@
 #include <Python.h>
 #include <vector>
 #include "dtype_converter.hpp"
+#include "object_like.hpp"
 
 namespace pyextend
 {
   template<class dtype>
-  class List
+  class List: public ObjectLike
   {
   public:
-    List(PyObject *obj):obj(obj), own_raw_ptr(false){};
-    List(PyObject *obj, bool own):obj(obj), own_raw_ptr(own){};
+    List(PyObject *obj):ObjectLike(obj){};
 
-
-   ~List()
-   {
-     if ( own_raw_ptr )
-     {
-       Py_DECREF(obj);
-     }
-   }
 
     /** Returns the size of the list */
     unsigned int size() const
@@ -51,18 +43,8 @@ namespace pyextend
         vec.push_back((*this)[i]);
       }
     };
-
-
-    /** Get a raw pointer to the underlying object */
-    PyObject* raw_ptr() { return obj; };
-
-
-    /** This object owns the underlying pointer */
-    void set_own(){ own_raw_ptr=true; };
   private:
     pyextend::DataTypeConverter<dtype> converter;
-    PyObject *obj;
-    bool own_raw_ptr{false};
   };
 };
 #endif
