@@ -67,3 +67,56 @@ PyObject *sum3D( PyObject *self, PyObject *args )
   }
   return PyFloat_FromDouble(sum);
 }
+
+
+PyObject* create1D( PyObject *self, PyObject *args )
+{
+  vector<double> vec;
+  vec.push_back(1.0);
+  vec.push_back(2.0);
+  vec.push_back(3.0);
+  NumpyArray<double> data(vec);
+  data.incref();
+  return data.raw_ptr();
+}
+
+
+PyObject* create2D( PyObject *self, PyObject *args )
+{
+  vector< vector<double> > vec;
+  for (unsigned int i=0;i<5;i++ )
+  {
+    vector<double> subvec;
+    subvec.push_back(1.0);
+    subvec.push_back(2.0);
+    subvec.push_back(3.0);
+    vec.push_back(subvec);
+  }
+
+  NumpyArray<double> data(vec);
+  data.incref();
+  return data.raw_ptr();
+}
+
+
+PyObject* create3D( PyObject *self, PyObject *args )
+{
+  vector< vector<vector<double> > > vec;
+  for (unsigned int i=0;i<5;i++ )
+  {
+    vector< vector<double> > subvec;
+    for (unsigned int j=0;j<4;j++ )
+    {
+      vector<double> subsubvec;
+      subsubvec.push_back(1.0);
+      subsubvec.push_back(2.0);
+      subsubvec.push_back(3.0);
+      subvec.push_back(subsubvec);
+    }
+    vec.push_back(subvec);
+  }
+
+  NumpyArray<double> data(vec);
+  data.incref();
+  return data.raw_ptr();
+}

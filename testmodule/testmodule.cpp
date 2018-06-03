@@ -14,6 +14,9 @@ static PyMethodDef testmodule_methods[] = {
   {"sum1D", sum1D, METH_VARARGS, "Sum all entries in an 1D numpy array"},
   {"sum2D", sum2D, METH_VARARGS, "Sum all entries in an 2D numpy array"},
   {"sum3D", sum3D, METH_VARARGS, "Sum all entries in an 3D numpy array"},
+  {"create1D", create1D, METH_VARARGS, "Create a 1D array from a C++ vector"},
+  {"create2D", create2D, METH_VARARGS, "Create a 2D array from a C++ vector"},
+  {"create3D", create3D, METH_VARARGS, "Create a 3D array from a C++ vector"},
   {NULL,NULL,0,NULL}
 };
 

@@ -8,8 +8,6 @@
 #include <iostream>
 #include <sstream>
 
-#define npcast(dtype,value) *static_cast<##dtype*>(value)
-
 namespace pyextend
 {
   template<class T>
@@ -128,7 +126,7 @@ namespace pyextend
 
     for (unsigned int i=0;i<vec.size();i++ )
     {
-      double* ptr = PyArray_GETPTR1(otf_ptr, i);
+      double* ptr = static_cast<dtype*>( PyArray_GETPTR1(otf_ptr, i) );
       *ptr = vec[i];
     }
   }
@@ -143,9 +141,9 @@ namespace pyextend
     otf_ptr = obj;
     for (unsigned int i=0;i<mat.size();i++ )
     {
-      for (unsigned int j=0;j<mat.size();j++ )
+      for (unsigned int j=0;j<mat[i].size();j++ )
       {
-        double *ptr = PyArray_GETPTR2(otf_ptr, i, j);
+        double *ptr = static_cast<dtype*>( PyArray_GETPTR2(otf_ptr, i,j) );
         *ptr = mat[i][j];
       }
     }
@@ -164,7 +162,7 @@ namespace pyextend
     for (unsigned int j=0;j<mat[i].size();j++ )
     for (unsigned int k=0;k<mat[i][j].size();k++ )
     {
-      double *ptr = PyArray_GETPTR3(otf_ptr, i, j, k);
+      double *ptr = static_cast<dtype*>( PyArray_GETPTR3(otf_ptr, i, j, k) );
       *ptr = mat[i][j][k];
     }
   }

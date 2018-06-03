@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from testmodule_cpp import sum_list, sum_nested, test_access, list_from_vector
-from testmodule_cpp import sum1D, sum2D, sum3D
+from testmodule_cpp import sum1D, sum2D, sum3D, create1D, create2D, create3D
 import sys
 import gc
 
@@ -58,6 +58,18 @@ class TestFramework( unittest.TestCase ):
         npsum = np.sum(array)
         cppsum = sum3D(array)
         self.assertAlmostEqual(npsum,cppsum)
+
+    def test_create1D(self):
+        array = create1D()
+        self.assertEqual( len(gc.get_referrers(array)), 1)
+
+    def test_create2D(self):
+        array = create2D()
+        self.assertEqual( len(gc.get_referrers(array)), 1)
+
+    def test_create3D(self):
+        array = create3D()
+        self.assertEqual( len(gc.get_referrers(array)), 1)
 
 if __name__ == "__main__":
     unittest.main()

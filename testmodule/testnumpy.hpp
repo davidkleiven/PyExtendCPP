@@ -5,4 +5,7 @@
 PyObject* sum1D( PyObject* self, PyObject *args );
 PyObject* sum2D( PyObject* self, PyObject *args );
 PyObject* sum3D( PyObject* self, PyObject *args );
+PyObject* create1D( PyObject* self, PyObject *args );
+PyObject* create2D( PyObject* self, PyObject *args );
+PyObject* create3D( PyObject* self, PyObject *args );
 #endif
