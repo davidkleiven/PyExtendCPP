@@ -5,21 +5,21 @@
 namespace pyextend
 {
   /** Type Error */
-  void error( PyObject* type, const char* msg )
+  inline void error( PyObject* type, const char* msg )
   {
     PyErr_SetString( type, msg );
   };
 
 
   /** Set type erro */
-  void type_error( const char* msg )
+  inline void type_error( const char* msg )
   {
     error( PyExc_TypeError, msg );
   };
 
 
   /** Set value error */
-  void value_error( const char* msg )
+  inline void value_error( const char* msg )
   {
     error( PyExc_ValueError, msg );
   };

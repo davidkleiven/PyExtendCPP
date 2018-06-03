@@ -28,8 +28,8 @@ PyObject* sum_list( PyObject* self, PyObject* args )
   }
 
   // Try the set methods
-  list_int.set(1,0);
-  list_dbl.set(1.0,0);
+  list_int.set(0,1);
+  list_dbl.set(0,1.0);
 
 
   // Test to vector

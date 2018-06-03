@@ -94,7 +94,7 @@ namespace pyextend
 
 
     /** Convert to C-type */
-    PyObject* c2py( pyextend::List<T> &list )
+    PyObject* c2py( pyextend::List<T> list )
     {
       return list.raw_ptr();
     };

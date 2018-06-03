@@ -51,7 +51,7 @@ namespace pyextend
     void set_attr( const char* name, const dtype& value )
     {
       DataTypeConverter<dtype> converter;
-      PyObject_SetAttr(obj, name, converter.c2py(value));
+      PyObject_SetAttrString(obj, name, converter.c2py(value));
     };
   private:
     PyObject* get_pyattr( const char *name )
