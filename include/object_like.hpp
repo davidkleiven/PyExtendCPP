@@ -34,14 +34,18 @@ namespace pyextend
 
 
     /** Get a raw pointer to the underlying object */
-    PyObject* raw_ptr() { return obj; };
+    PyObject* raw_ptr() const { return obj; };
+
+
+    /** Increase the reference count */
+    void incref(){ Py_INCREF(obj); };
   protected:
     PyObject *obj;
     bool own_ptr{false};
 
 
 
-    void swap( const ObjectLike &other )
+    virtual void swap( const ObjectLike &other )
     {
       obj = other.obj;
       if ( other.own_ptr )

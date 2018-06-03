@@ -94,7 +94,7 @@ namespace pyextend
 
 
     /** Convert to C-type */
-    PyObject* c2py( pyextend::List<T> list )
+    PyObject* c2py( const pyextend::List<T> &list )
     {
       return list.raw_ptr();
     };
@@ -105,6 +105,27 @@ namespace pyextend
     {
       return List<T> (pylist);
     }
+  };
+
+
+  /** Convert to and from NumpyArrays */
+  template <class T>
+  class DataTypeConverter< pyextend::NumpyArray<T> >
+  {
+  public:
+    DataTypeConverter(){};
+
+
+    PyObject* c2py( const pyextend::NumpyArray<T> &array )
+    {
+      return array.raw_ptr();
+    };
+
+
+    NumpyArray<T> py2c( PyObject *pyarray )
+    {
+      return NumpyArray<T>(pyarray);
+    };
   };
 };
 #endif

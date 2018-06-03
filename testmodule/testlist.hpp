@@ -7,4 +7,7 @@ PyObject* sum_list( PyObject* self, PyObject* args );
 
 /** Computest the sum of all elements in a nested list */
 PyObject* sum_nested( PyObject* self, PyObject *args );
+
+/** Test construction from vector */
+PyObject *list_from_vector( PyObject* self, PyObject *args );
 #endif

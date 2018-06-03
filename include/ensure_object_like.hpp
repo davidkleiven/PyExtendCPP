@@ -7,6 +7,8 @@ namespace pyextend
   class Object;
   template<class T>
   class List;
+  template<class T>
+  class NumpyArray;
 
 
   template<class dtype>
@@ -22,6 +24,8 @@ namespace pyextend
   struct is_object_like<Object>{static const bool value=true;};
   template<class T>
   struct is_object_like< List<T> >{static const bool value=true;};
+  template<class T>
+  struct is_object_like< NumpyArray<T> >{static const bool value=true;};
 
 
   template<class T>

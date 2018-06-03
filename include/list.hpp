@@ -12,6 +12,7 @@ namespace pyextend
   {
   public:
     List(PyObject *obj):ObjectLike(obj){};
+    List( const std::vector<dtype> &vec );
 
 
     /** Returns the size of the list */
@@ -46,5 +47,19 @@ namespace pyextend
   private:
     pyextend::DataTypeConverter<dtype> converter;
   };
+
+
+  // Implement construction from vector
+  template<class dtype>
+  List<dtype>::List( const std::vector<dtype> &vec ): ObjectLike(nullptr)
+  {
+    own_ptr = true;
+    obj = PyList_New(vec.size());
+    DataTypeConverter<dtype> converter;
+    for (unsigned int i=0;i<vec.size();i++ )
+    {
+      PyList_SetItem( obj, i, converter.c2py(vec[i]) );
+    }
+  }
 };
 #endif
