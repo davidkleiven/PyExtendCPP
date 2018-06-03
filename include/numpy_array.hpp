@@ -2,7 +2,7 @@
 #define NUMPY_ARRAY_WRAPPER_H
 #include "object_like.hpp"
 #define NO_IMPORT_ARRAY
-#define PY_ARRAY_UNIQUE_SYMBOL cool_ARRAY_API
+#define PY_ARRAY_UNIQUE_SYMBOL PYEXTEND_ARRAY_API
 #include <numpy/ndarrayobject.h>
 #include <vector>
 #include <iostream>
@@ -162,7 +162,7 @@ namespace pyextend
     obj = PyArray_SimpleNew( 3, dims, npy_typenum<dtype>::value );
     otf_ptr = obj;
     Py_INCREF(obj);
-    
+
     for (unsigned int i=0;i<mat.size();i++ )
     for (unsigned int j=0;j<mat[i].size();j++ )
     for (unsigned int k=0;k<mat[i][j].size();k++ )

@@ -1,5 +1,5 @@
 #include <Python.h>
-#define PY_ARRAY_UNIQUE_SYMBOL cool_ARRAY_API
+#define PY_ARRAY_UNIQUE_SYMBOL PYEXTEND_ARRAY_API
 #include <numpy/ndarrayobject.h>
 
 #include "testlist.hpp"
