@@ -3,13 +3,14 @@ import numpy as np
 from testmodule_cpp import sum_list, sum_nested, test_access, list_from_vector
 from testmodule_cpp import sum1D, sum2D, sum3D
 import sys
-import  gc
+import gc
 
 class ExampleObject(object):
     def __init__(self):
         self.dbl_attr = 0.0
         self.int_attr = 1
         self.list_attr = [1,2,3]
+        self.np_attr = np.array([1,2,3]).astype(np.int32)
 
 class TestFramework( unittest.TestCase ):
     def test_sumlist(self):
@@ -38,6 +39,7 @@ class TestFramework( unittest.TestCase ):
         self.assertAlmostEqual(obj.dbl_attr, 10.0)
         self.assertEqual(obj.int_attr, 2)
         self.assertEqual(obj.list_attr, [10,2,3])
+        self.assertTrue( np.allclose( obj.np_attr, np.array([7,2,3]) ) )
 
     def test1D(self):
         array = np.linspace(0.0,10.0,50.0)

@@ -39,6 +39,10 @@ namespace pyextend
 
     /** Increase the reference count */
     void incref(){ Py_INCREF(obj); };
+
+
+    /** Get the ref count of the underlying object */
+    int refcnt() const { return obj->ob_refcnt; };
   protected:
     PyObject *obj;
     bool own_ptr{false};
@@ -48,6 +52,7 @@ namespace pyextend
     virtual void swap( const ObjectLike &other )
     {
       obj = other.obj;
+      own_ptr = other.own_ptr;
       if ( other.own_ptr )
       {
         Py_INCREF(obj);

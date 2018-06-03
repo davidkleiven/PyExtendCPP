@@ -5,6 +5,8 @@
 #define PY_ARRAY_UNIQUE_SYMBOL cool_ARRAY_API
 #include <numpy/ndarrayobject.h>
 #include <vector>
+#include <iostream>
+#include <sstream>
 
 #define npcast(dtype,value) *static_cast<##dtype*>(value)
 
@@ -17,7 +19,11 @@ namespace pyextend
   template<>
   struct npy_typenum<int>{static const int value=NPY_INT;};
   template<>
+  struct npy_typenum<long long>{static const int value=NPY_INT64;};
+  template<>
   struct npy_typenum<unsigned int>{static const int value=NPY_UINT;};
+  template<>
+  struct npy_typenum<unsigned long long>{static const int value=NPY_UINT64;};
 
 
   template<class dtype>
@@ -25,15 +31,40 @@ namespace pyextend
   {
   public:
     NumpyArray( PyObject *obj ):ObjectLike(obj), \
-    otf_ptr(PyArray_FROM_OTF(obj, npy_typenum<dtype>::value, NPY_INOUT_ARRAY)){};
+    otf_ptr(PyArray_FROM_OTF(obj, npy_typenum<dtype>::value, NPY_INOUT_ARRAY)){
+      if ( otf_ptr == nullptr )
+      {
+        std::stringstream ss;
+        ss << "Could not parse the Numpy array!\n";
+        ss << "If this is a Numpy array with intergers, check:\n";
+        ss << "1. If the C++ signature is NumpyArray<int>, try to use\n";
+        ss << "array = array.astype(np.int32)\n";
+        ss << "alternatively try to change the C++ signature to\n";
+        ss << "NumpyArray<long long>";
+        throw std::invalid_argument( ss.str() );
+      }
+    };
 
     NumpyArray( const std::vector<dtype> &vec );
     NumpyArray( const std::vector< std::vector<dtype> > &mat );
     NumpyArray( const std::vector< std::vector< std::vector<dtype> > > &mat );
 
+    NumpyArray( const NumpyArray<dtype> &other ):ObjectLike(nullptr){
+      swap(other);
+    };
+
+    NumpyArray<dtype>& operator=( const NumpyArray<dtype> &other )
+    {
+      if ( this != &other )
+      {
+        swap(other);
+      }
+      return *this;
+    };
+
     ~NumpyArray()
     {
-      Py_DECREF(otf_ptr);
+      if ( otf_ptr != nullptr ) Py_DECREF(otf_ptr);
     };
 
 
@@ -73,9 +104,15 @@ namespace pyextend
 
     void swap( const NumpyArray<dtype> &other )
     {
+      std::cerr << other.otf_ptr->ob_refcnt << std::endl;
       ObjectLike::swap(other);
+      if ( otf_ptr != nullptr )
+      {
+        Py_DECREF(otf_ptr);
+      }
       otf_ptr = other.otf_ptr;
       Py_INCREF(otf_ptr);
+      std::cerr << other.otf_ptr->ob_refcnt << std::endl;
     };
   };
 
@@ -133,4 +170,57 @@ namespace pyextend
   }
 }
 
+
+template<class T>
+std::ostream& operator<<( std::ostream &out, const pyextend::NumpyArray<T> &value )
+{
+  std::vector<int> shape;
+  value.shape(shape);
+  if ( shape.size() == 1 )
+  {
+    out << "[";
+    for (unsigned int i=0;i<shape[0];i++ )
+    {
+      out <<value(i)<<",";
+    }
+    out <<"]";
+  }
+  else if (shape.size() == 2 )
+  {
+    for (unsigned int i=0;i<shape[0];i++ )
+    {
+      out << "[";
+      for (unsigned int j=0;j<shape[1];j++ )
+      {
+        out << value(i,j) << ",";
+      }
+      out << "]\n";
+    }
+    out << "]";
+  }
+  else if (shape.size() == 3 )
+  {
+    out <<"[";
+    for (unsigned int i=0;i<shape[0];i++ )
+    {
+      out <<"[";
+      for (unsigned int j=0;j<shape[1];j++)
+      {
+        out << "[";
+        for (unsigned int k=0;k<shape[2];k++ )
+        {
+          out << value(i,j,k) << ",";
+        }
+        out << "]\n";
+      }
+      out << "]\n";
+    }
+    out << "]";
+  }
+  else
+  {
+    throw std::invalid_argument("Only numpy arrays up to three dimensions are supported.");
+  }
+  return out;
+};
 #endif

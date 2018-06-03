@@ -1,8 +1,10 @@
 #ifndef DTYPE_CONVERTER_H
 #define DTYPE_CONVERTER_H
+
 #include <stdexcept>
 #include "object.hpp"
 #include "ensure_object_like.hpp"
+#include <iostream>
 
 #if PY_MAJOR_VERSION >= 3
 #define IS_PY3
